@@ -6,7 +6,7 @@ module.exports = {
         exec(null, null, "SystemVolume", "setSystemVolume", [volume]);
     },
         getSystemVolume: function(sucessCallback) {
-        return cordova.exec(sucessCallback, errorCallback, "SystemVolume", "getSystemVolume", []);
+        return cordova.exec(null, null, "SystemVolume", "getSystemVolume", []);
             
         }
 };
