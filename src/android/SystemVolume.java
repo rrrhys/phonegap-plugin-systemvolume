@@ -17,6 +17,11 @@ public class SystemVolume extends CordovaPlugin {
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 		if(action.equals("setSystemVolume")) {
 			this.setSystemVolume(args.getDouble(0));
+		} else if (action.equals("getAudioVolume")) {
+		    this.getSystemVolume();
+		    String message = "Success Audio Volume Get";
+		    callbackContext.success(message);
+		    return true;
 		} else {
 			return false;
 		}
@@ -24,6 +29,19 @@ public class SystemVolume extends CordovaPlugin {
 		callbackContext.success();
 		return true;
 	}
+	
+	    public int getSystemVolume() {
+		AudioManager am = (AudioManager) this.cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
+		try {
+			int Level;
+			int max = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+			int current =am.getStreamVolume(AudioManager.STREAM_MUSIC);
+			Level = Math.round(current / max);
+			return Level;
+		}catch (Exception e) {
+			return 1; 
+		}
+	    }
 
 	public void setSystemVolume(double volume) {
 		AudioManager am = (AudioManager) this.cordova.getActivity().getSystemService(Context.AUDIO_SERVICE);
